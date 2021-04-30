@@ -1,8 +1,6 @@
 require './lib/bin_heap.rb'
 
 describe BinHeap do
-  subject { BinHeap.new }
-
   describe '#new' do
     it 'inits a heap' do
       expect(subject).to be_a(BinHeap)
@@ -36,6 +34,10 @@ describe BinHeap do
       subject.push(2)
       subject.peek
       expect(subject.size).to eq(1)
+    end
+
+    it 'returns nil if empty' do
+      expect(subject.peek).to be_nil
     end
   end
 
@@ -103,7 +105,7 @@ describe BinHeap do
 
   context 'validation' do
     it 'returns a sorted large list' do
-      n = 1000
+      n = 100
       range = 100
       arr = n.times.map do 
         val = rand(range)

@@ -11,6 +11,7 @@ class BinHeap
   end
 
   def peek
+    return nil if @arr.empty?
     n = @arr.first
     _min? ? n : -n
   end
@@ -18,7 +19,7 @@ class BinHeap
   def pop
     _swap(0, @arr.length - 1)
     n = @arr.pop
-    _bubble_down(0)
+    _bubble_down!(0)
     _min? ? n : -n
   end
 
@@ -52,7 +53,7 @@ class BinHeap
     @arr[b_idx] = tmp
   end
 
-  def _bubble_down(idx)
+  def _bubble_down!(idx)
     a = @arr[idx]
     b_idx = _child(idx)
     c_idx = b_idx + 1
@@ -63,11 +64,11 @@ class BinHeap
       if !c || b < c
         # puts "\tSwap: a and b"
         _swap(idx, b_idx)
-        _bubble_down(b_idx)
+        _bubble_down!(b_idx)
       else
         # puts "\tSwap: a and c"
         _swap(idx, c_idx)
-        _bubble_down(c_idx)
+        _bubble_down!(c_idx)
       end
     end
   end
@@ -76,7 +77,9 @@ class BinHeap
     a = @arr[idx]
     p_idx = _parent(idx)
     p = @arr[p_idx]
+    # puts "Pushed: #{a} Parent: #{p}"
     if a < p
+      # puts "\tPushed is less than parent! Swapping and bubbling"
       _swap(idx, p_idx)
       _bubble_up!(p_idx)
     end
