@@ -17,7 +17,7 @@ class MedianStream
   end
 
   def push(n)
-    if @low.peek && @low.peek >= n
+    if !@low.peek || @low.peek >= n
       @low.push(n)
     else
       @high.push(n)
